@@ -1,0 +1,169 @@
+body {
+  padding: 0px;
+  color: #000;
+  background: url("/images/blog_bg.jpg") no-repeat 0 0px fixed;
+  background-size: cover;
+  font: 25px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+nav{
+	/*background:#888;*/
+	color:fff;
+	overflow:auto;
+	height:40px;
+	padding:20px 0 0 10px;
+	font-size: 25px;
+	border-bottom:2px solid #000;
+
+}
+
+a {
+  color: #404137;
+  text-decoration:none;
+}
+nav a:hover ,nav a.current{
+	background:#83cd29;
+	color:#000;
+
+}
+.container{
+	width:900px;
+	border:1px solid #000;
+	border-top: 0px;
+	margin:20px auto;
+	margin-top:0px;
+	padding:20px;
+
+}
+.container1{
+	border-radius: 50%;
+	width:900px;
+	border:1px solid #000;
+	margin:20px auto;
+	padding:20px;
+	margin-bottom:0px;
+	border-top:#83cd39 2px solid;
+}
+.logo{
+	text-align: :center;
+	margin:auto;
+	border-radius: 50%;	
+	width:200px;
+	display:block;
+}
+div{
+
+}
+h1,h2,h3,h4,h5,h6{
+	padding:5px 0;
+	margin-bottom:0;
+}
+nav li{
+	float:left;
+	list-style: none;
+}
+nav a{
+	padding:10px;
+	margin:0 10px;
+	color:#fff;
+}
+ul{
+	padding:0px;
+	margin:0px;
+}
+form{
+	margin-top:20px;
+}
+label{
+	display:inline-block;
+	width:180px;
+}
+input,select,textarea{
+	margin-bottom:15px;
+}
+input[type='text'],select,textarea{
+	padding:3px;
+	height:20px;
+	width:200px;
+	border: 1px #ccc solid
+}
+select{
+	height:28px;
+}
+textarea{
+	height:50px;
+	border: 1px #ccc solid
+
+}
+a.more{
+	font-weight:bold;
+	font-style: abel;
+	color:blue;
+}
+.meta{
+	padding:12px;
+	margin:0px;
+	font-size:20px;
+
+	background: #000;
+}
+.a_meta{
+	color:white;
+	padding:5px;
+}
+.meta1{
+	margin:0px;
+	letter-spacing:1.5px;
+	font-size:16px;
+}
+#title{
+	text-align: center;
+	font-style: abel;
+	font-size: 40px;
+}
+#posttitle{
+	font-style: abel;
+	font-size: 30px;
+}
+.post{
+	padding-bottom:20px;
+	border-bottom:1px solid #ccc;
+}
+.postcomment{
+	padding:10px;
+	margin-top:5px;
+	color:white;
+	border:3px solid #000;
+	font-size: 15px;
+	font-weight: bold;
+}
+.post img{
+	width:100%;
+	margin-bottom:10px;
+	padding-top:0px;
+}
+#commentlabel{
+	color:white;
+}
+.submit{
+	padding:7px;
+	margin:5px;
+	font:15px;
+	
+}
+.submit:hover{
+	padding:7px;
+	margin:5px;
+	font:15px;
+	background:#ccc;
+	cursor: pointer;
+	
+}
+footer{
+	text-align: center;
+	color:#000;
+	font-family:abel;
+	font-weight:bold;
+	font-size: 30px;
+	margin-top:20px;
+	padding-top:10px;
+}

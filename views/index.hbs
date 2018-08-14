@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog</title>
+</head>
+<body>
+<h1 id="title">{{title}}</h1> 
+{{#if posts}}
+{{#each posts}}
+<div class="post">
+	<h2 id="posttitle">{{this.title}}:</h2>
+	<p class="meta">
+		<a class="a_meta" href="/categories/show/{{this.categories}}"> 
+			posted in
+			 <b>{{this.categories}}</b> by <b>{{this.author}}</b> 
+			on {{this.date}}
+		</a>
+	</p>
+<img src="/images/uploads/{{this.mainImageName}}">
+</br>
+
+<p class=meta1>{{truncateText this.body 400}}...<a class="more" href="/posts/show/{{this._id}}"> Read more</a></p>
+</div>
+
+{{/each}}
+{{else}}
+<p>There are no posts to display</p>
+{{/if}}
+
+</body>
+</html>
