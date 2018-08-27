@@ -15,6 +15,18 @@ router.get('/show/:id', function(req, res, next) {
 
 	});
 });
+//-----------------------------delete--------------------------------
+router.delete('/delete/:id', function(req, res, next) {
+	var db=req.db;
+	var posts=db.get('posts');
+	var id=req.params.id;
+	posts.findOneAndDelete(id,(err,posts)=>{
+    res.render('index.hbs',{
+    	posts
+    });
+
+	});
+});
 //------------------------------------------------add--------------------------------------
 router.get('/add', function(req, res, next) {
 	var categories=db.get('categories');
@@ -130,8 +142,8 @@ router.post('/add',(req,res,next)=>{
 				else
 				{
 					req.flash('success','post submitted');
-					res.location('/');
-					res.redirect('/');
+					res.location('/blog/showall');
+					res.redirect('/blog/showall');
 				}
 			});
 	

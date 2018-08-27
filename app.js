@@ -7,24 +7,25 @@ var bodyParser=require('body-parser');
 var expressValidator=require('express-validator');
 var logger = require('morgan');
 var mongo=require('mongodb');
-var db=require('./bin/monk-connect.js').db;
 var flash=require('connect-flash');
 var hbs=require('hbs');
-
-// var Handlebars = require("handlebars");
-// var MomentHandler = require("handlebars.moment");
-// MomentHandler.registerHelpers(Handlebars);
-
 var mongoose=require('mongoose');
-var indexRouter = require('./routes/index');
+var db=require('./bin/monk-connect.js').db;
+var blogRouter = require('./routes/blog');
+var loginRouter = require('./routes/users');
 var usersRouter = require('./routes/posts');
+var passport=require('passport');
+var authenticate = require('./authenticate');
 var categoriesRouter = require('./routes/categories');
 var app = express();
+var config = require('./config');
+const url = config.mongoUrl;
 
 hbs.registerHelper('truncateText' ,(text,length)=>{
 	var truncatedText=text.substring(0,length);
 	return truncatedText;
 });
+
 var multer=require('multer');
 app.use(multer({dest :"./public/images/uploads/"}));
 
@@ -46,7 +47,8 @@ app.use(session({
 }));
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(passport.initialize());
+app.use(passport.session());
 //global vars
 app.use(flash());
 app.use((req,res,next)=>{
@@ -60,10 +62,27 @@ app.use((req,res,next)=>{
 	req.db=db;
 	next();
 });
+
+function auth (req, res, next) {
+    console.log(req.user);
+
+    if (!req.user) {
+      console.log('error');
+      res.redirect('/');
+    }
+    else {
+          next();
+    }
+}
+app.use('/', loginRouter);
+
+app.use(auth);
 //---------------------------------------------routes---------------------------------------------
-app.use('/', indexRouter);
+
+app.use('/blog', blogRouter);
 app.use('/posts', usersRouter);
-app.use('/categories',categoriesRouter)
+app.use('/categories',categoriesRouter);
+
 //catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));
