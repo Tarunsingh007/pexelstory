@@ -1,0 +1,22 @@
+{{> header}}
+<title>{{title}}</title>
+<div class="row">
+	{{#if blog}}
+     {{#each blog}}
+   <div class="col-md-3">
+      <div class="text-center" >
+         <img class="img-thumbnail img-fluid img-rounded"  src="{{this.image}}" style="width:350px; margin-top:10px; overflow:hidden; height:300px;">
+            <div  class="caption">
+             <h4 class="name">{{this.name}} </h4>
+            </div>
+            <p>
+               <a href="/blogs/{{this._id}}" class="btn btn-md btn-primary">More Info</a>
+            </p>
+      </div>
+   </div>
+   {{/each}}
+   {{else}}
+   <p>There are No Blogs</p>
+   {{/if}}
+ 
+   </div>

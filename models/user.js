@@ -1,15 +1,15 @@
 var mongoose=require('mongoose');
-var passportLocalMongoose = require('passport-local-mongoose');
-var schema=mongoose.Schema;
+var schema=require('mongoose').Schema;
 
-mongoose.connect('mongodb://localhost/nodeblog');
+var passportLocalMongoose= require("passport-local-mongoose");
 
-var User=new schema({
-	   admin:   {
-        type: Boolean,
-        default: false
-    }
+var UserSchema=new schema({
+	username:{
+		type:String
+	},
+	email:{
+		type:String
+	}
 });
-
-User.plugin(passportLocalMongoose);
-var User =module.exports=mongoose.model('User',User);
+UserSchema.plugin(passportLocalMongoose);
+module.exports=mongoose.model('User',UserSchema);

@@ -1,0 +1,12 @@
+{{>header}}
+<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+<div class="container">
+	<h3>Reset your password</h3>
+		<form action="/forget/reset?_method=put" method="post">
+		  <div class="form-group">
+		    <label for="pwd">Password:</label>
+		    <input type="password" class="form-control" id="pwd" name="password" required>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Reset Password</button>
+		</form>
+	</div>

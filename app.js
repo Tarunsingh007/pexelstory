@@ -2,103 +2,78 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var session=require('express-session');
-var bodyParser=require('body-parser');
-var expressValidator=require('express-validator');
 var logger = require('morgan');
-var mongo=require('mongodb');
+var indexRouter = require('./routes/index');
+var blogRouter = require('./routes/blogs');
 var flash=require('connect-flash');
-var hbs=require('hbs');
-var mongoose=require('mongoose');
-var db=require('./bin/monk-connect.js').db;
-var blogRouter = require('./routes/blog');
-var loginRouter = require('./routes/users');
-var usersRouter = require('./routes/posts');
 var passport=require('passport');
-var authenticate = require('./authenticate');
-var categoriesRouter = require('./routes/categories');
-var app = express();
-var config = require('./config');
-const url = config.mongoUrl;
+var session=require('express-session');
+var LocalStrategy = require("passport-local")
+var User=require('./models/user.js');
+var mongoose=require('mongoose');
+var hbs=require('hbs');
+methodOverride= require("method-override");
 
-hbs.registerHelper('truncateText' ,(text,length)=>{
-	var truncatedText=text.substring(0,length);
-	return truncatedText;
+// mongoose.connect('mongodb://admin:admin123@ds111622.mlab.com:11622/blogdb');
+mongoose.connect('mongodb://Localhost:27017/blogdb');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('mongo connected!');
 });
 
-var multer=require('multer');
-app.use(multer({dest :"./public/images/uploads/"}));
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'hbs');
-
-
-
+hbs.registerPartials(__dirname + '/views/partials');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-	secret:'secret',
-	saveuninitialized:true,
-	resave:true
-}));
-app.use(expressValidator());
+app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, 'public')));
+//-------------------------------------------------------MAIN----------------------------------------
+app.use(session({
+    secret:"0123456789",
+    resave:false,
+    saveUninitialized:false
+}));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-//global vars
-app.use(flash());
-app.use((req,res,next)=>{
-	res.locals.success_msg=req.flash('success_msg');
-	res.locals.error_msg=req.flash('error_msg');
-	res.locals.error=req.flash('error');
-	res.locals.user=req.user||null;
-	next();
-});
-app.use((req,res,next)=>{
-	req.db=db;
-	next();
+
+app.use(function(req,res,next){
+   res.locals.currentUser=req.user;
+   res.locals.error=req.flash("error");
+   res.locals.success=req.flash("success");
+   next();
 });
 
-function auth (req, res, next) {
-    console.log(req.user);
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+//-----------------------------------------------------MAIN----------------------------------------------
 
-    if (!req.user) {
-      console.log('error');
-      res.redirect('/');
-    }
-    else {
-          next();
-    }
-}
-app.use('/', loginRouter);
+app.use('/', indexRouter);
+app.use('/blogs', blogRouter);
 
-app.use(auth);
-//---------------------------------------------routes---------------------------------------------
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-app.use('/blog', blogRouter);
-app.use('/posts', usersRouter);
-app.use('/categories',categoriesRouter);
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-//catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   // res.render('error.hbs');
-
-// });
-
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 module.exports = app;
