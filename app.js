@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
-var blogRouter = require('./routes/blogs');
+var pexelRouter = require('./routes/pexel');
 var flash=require('connect-flash');
 var passport=require('passport');
 var session=require('express-session');
@@ -57,7 +57,7 @@ passport.deserializeUser(User.deserializeUser());
 //-----------------------------------------------------MAIN----------------------------------------------
 
 app.use('/', indexRouter);
-app.use('/blogs', blogRouter);
+app.use('/pexel', pexelRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
