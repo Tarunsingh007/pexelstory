@@ -15,13 +15,12 @@ var hbs=require('hbs');
 methodOverride= require("method-override");
 
 // mongoose.connect('mongodb://admin:admin123@ds111622.mlab.com:11622/blogdb');
-mongoose.connect('mongodb://Localhost:27017/blogdb');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  console.log('mongo connected!');
-});
+mongoose.connect("mongodb+srv://Admin:password121@cluster0.cnxzq.mongodb.net/pexelstory?retryWrites=true&w=majority",(err)=>{
+	if(err)
+		console.log(err);
+	else
+		console.log("connected to database");
+})
 
 var app = express();
 
