@@ -1,0 +1,33 @@
+{{> header}}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <center><h1>Stories of <strong>{{story.author.username}}</strong></h1></center>
+            <div class="p-2 card">
+                <img class="image-responsive rounded" src="{{story.image}}">
+                <div class="card-block">
+                    <a class="card-title" href="#"><h4>{{story.name}}</h4></a>
+                    <h4 class="card-title d-flex justify-content-end"><b>Price: </b>$ {{story.price}}</h4>
+                    <div class="card-text">
+                        <p>{{story.description}}</p> 
+                        <b><p>Submitted by : {{story.author.username}}</p></b>
+                    </div>
+                </div>
+            </div>
+            {{#if currentuser}}<hr>
+            <div class="row">
+              <div class="col-sm-1">
+                 <form class="deleteForm" action="/pexel/{{story.id}}/edit" method="get" >
+                            <button class="btn btn-sm btn-outline-success">Edit</button>
+                 </form>
+              </div>
+              <div class="col-sm-1">
+                  <form class="deleteForm" action="/pexel/{{story.id}}?_method=delete" method="post" >
+                              <button class="btn btn-sm btn-outline-danger">Delete</button>
+                  </form>
+              </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

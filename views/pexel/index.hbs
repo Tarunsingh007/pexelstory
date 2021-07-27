@@ -1,0 +1,25 @@
+{{> header}}
+<title>{{title}}</title>
+<div class="container">   
+   <div class="row">
+      {{#if story}}
+      {{#each story}}
+      <div class="col-md-3">
+         <div class="text-center m-0" >
+            <img class="shadow img-fluid rounded"  src="{{this.image}}" style="width:350px; margin-top:10px; overflow:hidden; height:300px;">
+            <blockquote class="blockquote">
+               <footer style="height:50px;" class="mt-1 blockquote-footer text-dark strong text-capitalize font-weight-bold">{{this.name}}</footer>
+            </blockquote>
+         </div>
+         <div class="mt-1">
+            <p>
+               <a href="/pexel/{{this._id}}" class="btn btn-outline-info m-0">More Info</a>
+            </p>
+         </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <p>There are no stories</p>
+      {{/if}}
+   </div>
+</div>
