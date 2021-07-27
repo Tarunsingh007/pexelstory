@@ -4,7 +4,7 @@ var passport=require('passport');
 var User=require('../models/user.js');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'BLOGAPP' });
+  res.render('index', { title: 'PexelStory' });
 });
 router.get('/signup',(req, res, next)=> {
   res.render('signup');
@@ -31,7 +31,7 @@ router.get('/forget/reset',(req,res,next)=>{
 });
 
 router.put('/forget/reset', (req,res,next)=>{
-   User.findOneAndUpdate(req.email,req.body,(err,blog)=>{
+   User.findOneAndUpdate(req.email,req.body,(err,pexel)=>{
       if(err)
          return err;
       else
@@ -57,16 +57,14 @@ router.post('/signup',(req,res,next)=>{
 			 			else
 			 			{
 				 			passport.authenticate("local")(req,res,()=>{
-			         		req.flash("success" , "Welcome to the Yelpcamp " + user.username);
-			          		console.log(user);
-			          		res.redirect("/blogs");
+			          		res.redirect("/pexel");
 			      			 });
  						}
 				 	});
 				 });
 router.post("/signin",passport.authenticate("local",
 {
-    successRedirect:"/blogs",
+    successRedirect:"/pexel",
     failureRedirect:"/signin"
 }),(req,res)=>{
   
@@ -74,7 +72,7 @@ router.post("/signin",passport.authenticate("local",
 router.get("/signout",function(req, res) {
    req.logout();
    req.flash("success","logged out");
-   res.redirect("/blogs");
+   res.redirect("/pexel");
 });
 
 module.exports = router;

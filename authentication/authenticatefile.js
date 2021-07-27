@@ -1,18 +1,18 @@
-var blog = require("../models/blogs");
+var pexel = require("../models/pexel");
 var Comment = require("../models/comments");
 var authorization = {};
 
-authorization.authorizeblog= function(req,res,next){
+authorization.authorizeStory= function(req,res,next){
      if(req.isAuthenticated()){
-           blog.findById(req.params.id,function(err,blog){
+           pexel.findById(req.params.id,function(err,pexel){
                 if(err){
                     res.redirect("/blogs");
                 } else{
-                    if(blog.author.id.equals(req.user._id)){
+                    if(pexel.author.id.equals(req.user._id)){
                        next();    
                     }else{
                         req.flash("error" , "You don,t have permission to do that");
-                        res.redirect("/blogs");
+                        res.redirect("/pexel");
                     }
                 }
             });
