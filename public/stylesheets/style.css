@@ -1,22 +1,47 @@
-body {
-  padding: 0px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin :0px;
-}
-#caption01 {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  text-align: center;
-  color: #000;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+*{
+  font-family: 'Roboto', sans-serif;
 }
 
-.caption span.border {
+body {
+  padding: 0px;
+  margin :0px;
+}
+
+.bgimg-1{
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #111;
+}
+
+div.border {
   background-color: #111;
   color: #fff;
   opacity:0.8;
   padding: 18px;
+  margin:0;
+  text-align: center;
   font-size: 25px;
-  letter-spacing: 10px;
+  letter-spacing: 12px;
+}
+div.border:hover {
+  background-color: #fff;
+  color: #000;
+  cursor:none;
+  opacity:0.8;
+  padding: 18px;
+  margin:0;
+  letter-spacing: 12px;
+}
+.landing_heading{
+  color: #fff;
+  opacity:0.9;
+  margin:0;
+  font-size: 25px;
+  letter-spacing: 12px;
 }
